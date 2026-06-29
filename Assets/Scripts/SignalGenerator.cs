@@ -17,6 +17,7 @@ public class SignalGenerator : MonoBehaviour
 
 	int spawnLocation = -5;
 	int lastSpawnLocation = -5;
+	int style=1;
 
 	Rigidbody2D rigid2D;
 
@@ -48,10 +49,10 @@ public class SignalGenerator : MonoBehaviour
 	void Update()
 	{
 		timer++;
-		// ƒXƒƒCƒv‚Ì’·‚³‚ð‹‚ß‚é
-		if (Mouse.current.leftButton.wasPressedThisFrame)        // ƒ}ƒEƒX‚ªƒNƒŠƒbƒN‚³‚ê‚½‚ç
+		// ï¿½Xï¿½ï¿½ï¿½Cï¿½vï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
+		if (Mouse.current.leftButton.wasPressedThisFrame)        // ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
 		{
-			// ƒ}ƒEƒX‚ðƒNƒŠƒbƒN‚µ‚½À•W
+			// ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½W
 			startPos = Mouse.current.position.value;
 		}
 		if (Mouse.current.leftButton.IsPressed())
@@ -63,7 +64,7 @@ public class SignalGenerator : MonoBehaviour
 				signal.transform.position = transform.position;
 			}*/
 
-			// ¡‚Ìƒ}ƒEƒXÀ•W
+			// ï¿½ï¿½ï¿½Ìƒ}ï¿½Eï¿½Xï¿½ï¿½ï¿½W
 			Vector2 endPos = Mouse.current.position.value;
 			swipeX = endPos.x - startPos.x;
 			swipeY = endPos.y - startPos.y;
@@ -94,7 +95,7 @@ public class SignalGenerator : MonoBehaviour
 			signal.transform.position = transform.position;
 			timer = 0;
 		}
-		if (timer > 120 && spriteRenderer == shot)
+		if (timer > 30 && spriteRenderer.sprite == shot)
 		{
 			spriteRenderer.sprite = normal;
 		}
@@ -102,11 +103,16 @@ public class SignalGenerator : MonoBehaviour
 }
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if (timer > 120) spriteRenderer.sprite = normal;
+		if (timer > 30) {spriteRenderer.sprite = normal;style=1;}
 	}
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (timer > 120) spriteRenderer.sprite = jump;
+		if (timer > 30) 
+		{
+			style++;
+			if(style%4>1){spriteRenderer.sprite = jump;}
+			if(style%4<2){spriteRenderer.sprite = normal;}
+		}
 	}
 
 }

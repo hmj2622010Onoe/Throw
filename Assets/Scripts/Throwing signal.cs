@@ -28,9 +28,9 @@ public class Throwingsignal : MonoBehaviour
 			rigid2D.AddForce((-transform.up * (throwingPowerY * SignalGenerator.swipeY)) + (-transform.right * (throwingPowerX * SignalGenerator.swipeX)));
 		}
 		
-		if(count>20)gameObject.layer=LayerMask.NameToLayer("EndBall");
+		if(count>5)gameObject.layer=LayerMask.NameToLayer("EndBall");
 
-		if (transform.position.y < -3.0f||count>breakTimer)
+		if (transform.position.y < -4.0f||count>breakTimer)
 		{
 			Destroy(gameObject);
 		}

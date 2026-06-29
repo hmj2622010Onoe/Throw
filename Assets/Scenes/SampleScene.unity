@@ -343,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 131255241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.82, y: -0.36, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,7 +671,7 @@ Transform:
   m_GameObject: {fileID: 805298533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.38, y: 2.17, z: 0}
+  m_LocalPosition: {x: 5.887, y: 1.64, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -711,11 +711,11 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.16, y: -0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.32}
+    pivot: {x: 0.4851134, y: 0.86906695}
+    oldSize: {x: 0.7, y: 0.32}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -770,17 +770,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.11}
+  m_Offset: {x: -0.16, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.32}
+    pivot: {x: 0.4851134, y: 0.86906695}
+    oldSize: {x: 0.7, y: 0.32}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.16, y: 0.1}
   m_EdgeRadius: 0
 --- !u!1 &1038544038
 GameObject:
@@ -1046,7 +1046,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.12, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1056,7 +1056,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.4, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1455048679
 GameObject:
@@ -1162,8 +1162,8 @@ GameObject:
   - component: {fileID: 1481571673}
   - component: {fileID: 1481571674}
   - component: {fileID: 1481571675}
-  - component: {fileID: 1481571676}
   - component: {fileID: 1481571677}
+  - component: {fileID: 1481571678}
   m_Layer: 6
   m_Name: Penguin
   m_TagString: Untagged
@@ -1239,7 +1239,7 @@ Transform:
   m_GameObject: {fileID: 1481571668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.02, y: -2.66, z: 0}
+  m_LocalPosition: {x: -5.67, y: -0.24, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1308,52 +1308,6 @@ MonoBehaviour:
   Jump1SE: {fileID: 8300000, guid: c4346e89166c65c459b745d8a347750e, type: 3}
   Jump2SE: {fileID: 8300000, guid: 6651a868c76ccc64f970aa628b0d7be0, type: 3}
   JumpC_Max: 2
---- !u!61 &1481571676
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481571668}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.27, y: 0.23}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
-  m_EdgeRadius: 0
 --- !u!61 &1481571677
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1388,7 +1342,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1398,7 +1352,53 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.19, y: 0.25}
+  m_Size: {x: 0.15, y: 0.24}
+  m_EdgeRadius: 0
+--- !u!61 &1481571678
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481571668}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.05, y: -0.12}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.27, y: 0.23}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.15, y: 0.05}
   m_EdgeRadius: 0
 --- !u!1 &1498091054
 GameObject:
@@ -1548,7 +1548,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.5727344
+      value: 6.5083213
       objectReference: {fileID: 0}
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalScale.y
@@ -1556,7 +1556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.8167
+      value: -8.8489
       objectReference: {fileID: 0}
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1836,11 +1836,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.662064
+      value: 6.444881
       objectReference: {fileID: 0}
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.712
+      value: -5.8207
       objectReference: {fileID: 0}
     - target: {fileID: 1803621314622270840, guid: 361c7029b8e7b084788bc5b2ffe9e5a1, type: 3}
       propertyPath: m_LocalPosition.y
