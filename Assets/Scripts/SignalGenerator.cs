@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.WSA;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class SignalGenerator : MonoBehaviour
 {
 	[SerializeField] GameObject signalPrefab;
-	//[SerializeField] GameObject ball;
+	[SerializeField] GameObject mark;
+
+	[SerializeField] AudioClip throwSE;
+	[SerializeField] AudioClip goalSE;
 
 	int spawnLocation = -5;
 	int lastSpawnLocation = -5;
@@ -28,6 +32,7 @@ public class SignalGenerator : MonoBehaviour
 
 	public void GetReset() 
 	{
+		AudioSource.PlayClipAtPoint(goalSE, transform.position);
 		spawnLocation = Random.Range(-6, 2);
 		while(spawnLocation==lastSpawnLocation) spawnLocation = Random.Range(-6, 2);
 		transform.position = new Vector3(spawnLocation, 0,0);
@@ -41,7 +46,7 @@ public class SignalGenerator : MonoBehaviour
 		if (Mouse.current.leftButton.wasPressedThisFrame)        // マウスがクリックされたら
 		{
 			// マウスをクリックした座標
-			this.startPos = Mouse.current.position.value;
+			startPos = Mouse.current.position.value;
 		}
 		if (Mouse.current.leftButton.IsPressed())
 		{
@@ -54,14 +59,15 @@ public class SignalGenerator : MonoBehaviour
 
 			// 今のマウス座標
 			Vector2 endPos = Mouse.current.position.value;
-			swipeX = endPos.x - this.startPos.x;
-			swipeY = endPos.y - this.startPos.y;
+			swipeX = endPos.x - startPos.x;
+			swipeY = endPos.y - startPos.y;
 			if (swipeX > throwingMax)swipeX = throwingMax;
 			if (swipeX < -throwingMax)swipeX = -throwingMax;
 			if (swipeY > throwingMax)swipeY = throwingMax;
 			if (swipeY < -throwingMax)swipeY = -throwingMax;
-			
+			mark.SetActive(true);
 		}
+		else mark.SetActive(false);  
 		/*else
 		{
 			GameObject[] prefabs = GameObject.FindGameObjectsWithTag("Signal");
@@ -77,9 +83,9 @@ public class SignalGenerator : MonoBehaviour
 		if (Mouse.current.leftButton.wasReleasedThisFrame)
 		{
 			GameObject signal = Instantiate(signalPrefab);
+			AudioSource.PlayClipAtPoint(throwSE, transform.position);
 			signal.transform.position = transform.position;
 			timer++;
-
 			/*if (timer > 60)
 			{
 				swipeX = 0;

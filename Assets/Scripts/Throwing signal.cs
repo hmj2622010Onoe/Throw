@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class Throwingsignal : MonoBehaviour
 {
 	Rigidbody2D rigid2D;
-	[SerializeField]int throwingPowerX = 1;
-	[SerializeField]int throwingPowerY = 1;
+	int throwingPowerX = 2;
+	int throwingPowerY = 2;
 
 	int count = 0;
 	int breakTimer = 500;
@@ -28,7 +28,7 @@ public class Throwingsignal : MonoBehaviour
 			rigid2D.AddForce((-transform.up * (throwingPowerY * SignalGenerator.swipeY)) + (-transform.right * (throwingPowerX * SignalGenerator.swipeX)));
 		}
 		
-		if(count>100)gameObject.layer=LayerMask.NameToLayer("EndBall");
+		if(count>20)gameObject.layer=LayerMask.NameToLayer("EndBall");
 
 		if (transform.position.y < -3.0f||count>breakTimer)
 		{
