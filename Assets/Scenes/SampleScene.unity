@@ -1006,8 +1006,8 @@ Transform:
   m_GameObject: {fileID: 1244263999}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.88, y: -0.2076, z: 0}
-  m_LocalScale: {x: 0.2, y: 5.571187, z: 1}
+  m_LocalPosition: {x: 5.88, y: -0.2878, z: 0}
+  m_LocalScale: {x: 0.2, y: 5.4107366, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1261,6 +1261,9 @@ MonoBehaviour:
   mark: {fileID: 131255241}
   throwSE: {fileID: 8300000, guid: 07508af35f23066408150cff3acbf34a, type: 3}
   goalSE: {fileID: 8300000, guid: dbe256b3a1d1e924ca007e48430bffb3, type: 3}
+  shot: {fileID: -6918955253257346767, guid: 8e3b956cab654424fa6151145374e6e2, type: 3}
+  normal: {fileID: 4960859215043220515, guid: 9035f5d561611244db750ab306d4f40d, type: 3}
+  jump: {fileID: -1203543237929130395, guid: e37191abc5d39414e816ac3b8c9cc219, type: 3}
   throwingMax: 500
 --- !u!50 &1481571674
 Rigidbody2D:

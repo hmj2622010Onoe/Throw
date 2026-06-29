@@ -8,10 +8,6 @@ public class Move : MonoBehaviour
 	[SerializeField] AudioClip Jump1SE;
 	[SerializeField] AudioClip Jump2SE;
 
-	[SerializeField] Sprite[] normal;
-	[SerializeField] Sprite[] jump;
-	[SerializeField] Sprite[] shot;
-
 	bool groundFlag=true;
 	int JumpC_C = 0;
 	[SerializeField] int JumpC_Max = 2;
@@ -56,12 +52,12 @@ public class Move : MonoBehaviour
 	{
 		groundFlag = true;
 		JumpC_C = 0;
-		spriteRenderer.sprite = normal[];
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
 		groundFlag = false;
+
 	}
 
 }

@@ -11,6 +11,10 @@ public class SignalGenerator : MonoBehaviour
 	[SerializeField] AudioClip throwSE;
 	[SerializeField] AudioClip goalSE;
 
+	[SerializeField] Sprite shot;
+	[SerializeField] Sprite normal;
+	[SerializeField] Sprite jump;
+
 	int spawnLocation = -5;
 	int lastSpawnLocation = -5;
 
@@ -20,7 +24,7 @@ public class SignalGenerator : MonoBehaviour
 	public static float swipeY = 0;
 	[SerializeField] int throwingMax = 50;
 	int timer = 0;
-
+	SpriteRenderer spriteRenderer;
 	Vector2 startPos;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +32,7 @@ public class SignalGenerator : MonoBehaviour
 	{
 		UnityEngine.Application.targetFrameRate = 60;
 		transform.position = new Vector3(-5, 0,0);
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	public void GetReset() 
@@ -42,6 +47,7 @@ public class SignalGenerator : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		timer++;
 		// スワイプの長さを求める
 		if (Mouse.current.leftButton.wasPressedThisFrame)        // マウスがクリックされたら
 		{
@@ -83,15 +89,25 @@ public class SignalGenerator : MonoBehaviour
 		if (Mouse.current.leftButton.wasReleasedThisFrame)
 		{
 			GameObject signal = Instantiate(signalPrefab);
+			spriteRenderer.sprite = shot;
 			AudioSource.PlayClipAtPoint(throwSE, transform.position);
 			signal.transform.position = transform.position;
-			timer++;
-			/*if (timer > 60)
-			{
-				swipeX = 0;
-				swipeY = 0;
-			}*/
+			timer = 0;
 		}
+		if (timer > 120 && spriteRenderer == shot)
+		{
+			spriteRenderer.sprite = normal;
+		}
+
+}
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+		if (timer > 120) spriteRenderer.sprite = normal;
 	}
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (timer > 120) spriteRenderer.sprite = jump;
+	}
+
 }
 
