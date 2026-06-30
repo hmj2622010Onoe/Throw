@@ -222,9 +222,6 @@ public class SignalGenerator : MonoBehaviour
 					GetComponent<Move>().startJump = true;
 					GetComponent<Move>().keyRelease=true;
 
-					iceBallSample.SetActive(true);
-					iceBallText.SetActive(true);
-					sdIceBallText.SetActive(true);
 					transform.position = new Vector3(-4, 0, 0);
 					iceBall = 15;
 					goalCount = 0;
@@ -237,6 +234,9 @@ public class SignalGenerator : MonoBehaviour
 					goal.GetComponent<Goal>().GetReStart();
 					if (Keyboard.current.wKey.wasReleasedThisFrame)
 					{
+						iceBallSample.SetActive(true);
+						iceBallText.SetActive(true);
+						sdIceBallText.SetActive(true);
 						AudioSource.PlayClipAtPoint(startSE, transform.position);
 						game = Game.play;
 					}
