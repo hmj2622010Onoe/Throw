@@ -84,6 +84,7 @@ public class SignalGenerator : MonoBehaviour
 	public void GetResults()	// ƒŠƒUƒ‹ƒg‰æ–Ê‚É“ü‚é
 	{
 		AudioSource.PlayClipAtPoint(gameEndClearSE, transform.position);
+		goalCount++;
 		timer = 0;
 		game = Game.results;
 	}
