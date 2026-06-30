@@ -1,5 +1,8 @@
+using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.WSA;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
@@ -7,112 +10,251 @@ public class SignalGenerator : MonoBehaviour
 {
 	[SerializeField] GameObject signalPrefab;
 	[SerializeField] GameObject mark;
+	[SerializeField] GameObject iceBallSample;
+	[SerializeField] GameObject goal;
 
+	[SerializeField] GameObject titleText;
+	[SerializeField] GameObject sdTitleText;
+	[SerializeField] GameObject pressKeyText;
+	[SerializeField] GameObject sdPressKeyText;
+	[SerializeField] GameObject iceBallText;
+	[SerializeField] GameObject sdIceBallText;
+
+	[SerializeField] GameObject endScreen;
+	[SerializeField] GameObject endPenguin1;
+	[SerializeField] GameObject endPenguin2;
+
+	[SerializeField] GameObject endScoreText;
+	[SerializeField] GameObject endStringScoreText;
+	[SerializeField] GameObject endRankText;
+	[SerializeField] GameObject endsdRankText;
+	[SerializeField] GameObject endStringRankText;
+	[SerializeField] GameObject endWKeyText;
+	[SerializeField] GameObject endTKeyText;
+
+	[SerializeField] AudioClip startSE;
 	[SerializeField] AudioClip throwSE;
 	[SerializeField] AudioClip goalSE;
+	[SerializeField] AudioClip gameEndClearSE;
+	[SerializeField] AudioClip gameEndLimitSE;
 
 	[SerializeField] Sprite shot;
 	[SerializeField] Sprite normal;
 	[SerializeField] Sprite jump;
 
-	int spawnLocation = -5;
-	int lastSpawnLocation = -5;
-	int style=1;
+	int iceBall = 15;	// •X‹Ê‚Ì”
+	int goalCount = 0;	// ƒS[ƒ‹‚µ‚½‰ñ”
+	int score = 0;			
+
+	int spawnLocation = -4;		// ƒXƒ|[ƒ“‚µ‚½XÀ•W
+	int lastSpawnLocation = -4;	// ÅŒã‚ÉƒXƒ|[ƒ“‚µ‚½XÀ•W
+	int endTimer = 0;	// I—¹‚Ég—p‚·‚éƒ^ƒCƒ}[
 
 	Rigidbody2D rigid2D;
 
-	public static float swipeX = 0;
+	public static float swipeX = 0;		// ƒ}ƒEƒX‚ª‰Ÿ‚³‚ê‚Ä‚©‚ç—£‚³‚ê‚é‚Ü‚Å‚É“®‚¢‚½‹——£
 	public static float swipeY = 0;
-	[SerializeField] int throwingMax = 50;
+	[SerializeField] int throwingMax = 50;	//@‹——£‚ğƒJƒEƒ“ƒg‚·‚éÅ‘å’l
 	int timer = 0;
 	SpriteRenderer spriteRenderer;
 	Vector2 startPos;
+
+	public enum Game { start,play,results}
+	Game game=Game.start;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		UnityEngine.Application.targetFrameRate = 60;
-		transform.position = new Vector3(-5, 0,0);
+		transform.position = new Vector3(-4, 0,0);	// ‰ŠúˆÊ’u
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
-	public void GetReset() 
+	public void GetReset() // ƒS[ƒ‹‚µ‚½Œã‚Ì‹““®
 	{
-		AudioSource.PlayClipAtPoint(goalSE, transform.position);
-		spawnLocation = Random.Range(-6, 2);
+		// XÀ•W‚ğƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ‚ß‚Ä”z’u‚·‚é
+		spawnLocation = Random.Range(-6, 2);	
 		while(spawnLocation==lastSpawnLocation) spawnLocation = Random.Range(-6, 2);
 		transform.position = new Vector3(spawnLocation, 0,0);
-		lastSpawnLocation = spawnLocation;
+		goalCount++;
+		iceBall += 5;	// ‹Ê‚ğ5‚Â‰ñ•œ
+		if (iceBall > 20) iceBall = 20;	// 20‚Í‰z‚¦‚È‚¢
+		lastSpawnLocation = spawnLocation;	// ÅIˆÊ’u‚ÌXV
 	}
+	public void GetResults()	// ƒŠƒUƒ‹ƒg‰æ–Ê‚É“ü‚é
+	{
+		AudioSource.PlayClipAtPoint(gameEndClearSE, transform.position);
+		timer = 0;
+		game = Game.results;
+	}
+
 
 	// Update is called once per frame
 	void Update()
 	{
 		timer++;
-		// ï¿½Xï¿½ï¿½ï¿½Cï¿½vï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
-		if (Mouse.current.leftButton.wasPressedThisFrame)        // ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
+		if (game == Game.start)
 		{
-			// ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½W
-			startPos = Mouse.current.position.value;
+			// ƒ^ƒCƒgƒ‹UI‚ğ•\¦
+			titleText.SetActive(true);
+			sdTitleText.SetActive(true);
+			pressKeyText.SetActive(true);
+			sdPressKeyText.SetActive(true);
+			if (Keyboard.current.wKey.wasPressedThisFrame) // W‚ª‰Ÿ‚³‚ê‚½‚çƒXƒ^[ƒg‚·‚é
+			{
+				titleText.SetActive(false);
+				sdTitleText.SetActive(false);
+				pressKeyText.SetActive(false);
+				sdPressKeyText.SetActive(false);
+
+				iceBallSample.SetActive(true);
+				iceBallText.SetActive(true);
+				sdIceBallText.SetActive(true);
+				AudioSource.PlayClipAtPoint(startSE, transform.position);
+				game = Game.play;
+			}
 		}
-		if (Mouse.current.leftButton.IsPressed())
+		
+		if (game == Game.play)
 		{
-			/*timer++;
-			if (timer % 30 == 0)
+			// •X‹Ê‚Ì”‚ğ‰æ–Ê‚É•\¦
+			iceBallText.GetComponent<TextMeshProUGUI>().text="x"+iceBall.ToString();
+			sdIceBallText.GetComponent<TextMeshProUGUI>().text="x"+iceBall.ToString();
+
+			// ƒ}ƒEƒX‚ğ‰Ÿ‚µ‚Ä‚©‚ç—£‚·‚Ü‚Å‚É‚Ç‚ê‚¾‚¯“®‚¢‚½‚©‚Ìˆ—
+			if (Mouse.current.leftButton.wasPressedThisFrame)
+			{
+				startPos = Mouse.current.position.value;
+			}
+			if (Mouse.current.leftButton.IsPressed())
+			{
+				Vector2 endPos = Mouse.current.position.value;
+				swipeX = endPos.x - startPos.x;
+				swipeY = endPos.y - startPos.y;
+				if (swipeX > throwingMax) swipeX = throwingMax;
+				if (swipeX < -throwingMax) swipeX = -throwingMax;
+				if (swipeY > throwingMax) swipeY = throwingMax;
+				if (swipeY < -throwingMax) swipeY = -throwingMax;
+				mark.SetActive(true);
+			}
+			else mark.SetActive(false);
+
+			// ƒ}ƒEƒX‚ğ—£‚µ‚½‚Æ‚«‚É•X‹Ê‚ğ“Š‚°‚é
+			if (Mouse.current.leftButton.wasReleasedThisFrame && iceBall > 0)
 			{
 				GameObject signal = Instantiate(signalPrefab);
+				iceBall--;
+				endTimer = 0;
+				spriteRenderer.sprite = shot;
+				AudioSource.PlayClipAtPoint(throwSE, transform.position);
 				signal.transform.position = transform.position;
-			}*/
-
-			// ï¿½ï¿½ï¿½Ìƒ}ï¿½Eï¿½Xï¿½ï¿½ï¿½W
-			Vector2 endPos = Mouse.current.position.value;
-			swipeX = endPos.x - startPos.x;
-			swipeY = endPos.y - startPos.y;
-			if (swipeX > throwingMax)swipeX = throwingMax;
-			if (swipeX < -throwingMax)swipeX = -throwingMax;
-			if (swipeY > throwingMax)swipeY = throwingMax;
-			if (swipeY < -throwingMax)swipeY = -throwingMax;
-			mark.SetActive(true);
-		}
-		else mark.SetActive(false);  
-		/*else
-		{
-			GameObject[] prefabs = GameObject.FindGameObjectsWithTag("Signal");
-			foreach (GameObject obj in prefabs)
-			{
-				Destroy(obj);
+				timer = 0;
 			}
-			swipeX = 0;
-			swipeY = 0;
-
-		}*/
-
-		if (Mouse.current.leftButton.wasReleasedThisFrame)
-		{
-			GameObject signal = Instantiate(signalPrefab);
-			spriteRenderer.sprite = shot;
-			AudioSource.PlayClipAtPoint(throwSE, transform.position);
-			signal.transform.position = transform.position;
-			timer = 0;
-		}
-		if (timer > 30 && spriteRenderer.sprite == shot)
-		{
-			spriteRenderer.sprite = normal;
+			if (timer > 30 && spriteRenderer.sprite == shot)
+			{
+				spriteRenderer.sprite = normal;
+			}
+			if (iceBall < 1) endTimer++;
+			if (endTimer > 180)// •X‹Ê‚ª‚È‚­‚È‚ê‚ÎƒŠƒUƒ‹ƒg‚ÉˆÚs
+			{
+				AudioSource.PlayClipAtPoint(gameEndLimitSE, transform.position);
+				timer = 0;
+				game = Game.results;
+			}
 		}
 
+		// ƒŠƒUƒ‹ƒg‰æ–Ê
+		if (game == Game.results)
+		{
+			// ƒvƒŒƒC‰æ–Ê‚ÌUI‚ğ”ñ•\¦
+			mark.SetActive(false);
+			GetComponent<Move>().gameEnd = true;
+			iceBallSample.SetActive(false);
+			iceBallText.SetActive(false);
+			sdIceBallText.SetActive(false);
+
+			score = 100+(goalCount * 25) + (iceBall * 5);	// ƒXƒRƒA‚ÌŒvZ
+			if (goalCount == 0) score = 0;
+
+			// ƒŠƒUƒ‹ƒgUI‚ğ•\¦
+			endScreen.SetActive(true);
+			endPenguin1.SetActive(true);
+			endPenguin2.SetActive(true);
+			endScoreText.SetActive(true);
+			endScoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+			endStringScoreText.SetActive(true);
+
+			// ƒXƒRƒA‚É‰‚¶‚Äƒ‰ƒ“ƒN‚ğŒˆ‚ß‚é
+			endRankText.SetActive(true);
+			if (score >= 300)		endRankText.GetComponent<TextMeshProUGUI>().text = "S".ToString();
+			else if (score >= 225) endRankText.GetComponent<TextMeshProUGUI>().text = "A".ToString();
+			else if (score >= 175) endRankText.GetComponent<TextMeshProUGUI>().text = "B".ToString();
+			else if (score > 100) endRankText.GetComponent<TextMeshProUGUI>().text = "C".ToString();
+			else endRankText.GetComponent<TextMeshProUGUI>().text = "D".ToString();
+			endsdRankText.SetActive(false);
+			if (score >= 300) endsdRankText.GetComponent<TextMeshProUGUI>().text = "S".ToString();
+			else if (score >= 225) endsdRankText.GetComponent<TextMeshProUGUI>().text = "A".ToString();
+			else if (score >= 175) endsdRankText.GetComponent<TextMeshProUGUI>().text = "B".ToString();
+			else if (score >= 100) endsdRankText.GetComponent<TextMeshProUGUI>().text = "C".ToString();
+			else endsdRankText.GetComponent<TextMeshProUGUI>().text = "D".ToString();
+
+			endStringRankText.SetActive(true);
+			if (timer > 180)	// ­‚µŒo‰ß‚µ‚Ä‚©‚çƒŠƒgƒ‰ƒC‚Å‚«‚é‚æ‚¤‚É
+			{
+				endWKeyText.SetActive(true);
+				endTKeyText.SetActive(true);
+				if (Keyboard.current.wKey.wasReleasedThisFrame|| Keyboard.current.tKey.wasReleasedThisFrame)
+				{
+					endScreen.SetActive(false);
+					endPenguin1.SetActive(false);
+					endPenguin2.SetActive(false);
+					endScoreText.SetActive(false);
+					endStringScoreText.SetActive(false);
+					endRankText.SetActive(false);
+					endsdRankText.SetActive(false);
+					endStringRankText.SetActive(false);
+					endWKeyText.SetActive(false);
+					endTKeyText.SetActive(false);
+
+					// Ÿ‚ÌƒQ[ƒ€‚ÉŒü‚¯‚Ä‚Ì—pˆÓ
+					mark.SetActive(true);
+					GetComponent<Move>().gameEnd = false;
+					GetComponent<Move>().startJump = true;
+					GetComponent<Move>().keyRelease=true;
+
+					iceBallSample.SetActive(true);
+					iceBallText.SetActive(true);
+					sdIceBallText.SetActive(true);
+					transform.position = new Vector3(-4, 0, 0);
+					iceBall = 15;
+					goalCount = 0;
+					score = 0;
+
+					spawnLocation = -4;
+					lastSpawnLocation = -4;
+
+					endTimer = 0;
+					goal.GetComponent<Goal>().GetReStart();
+					if (Keyboard.current.wKey.wasReleasedThisFrame)
+					{
+						AudioSource.PlayClipAtPoint(startSE, transform.position);
+						game = Game.play;
+					}
+					if (Keyboard.current.tKey.wasReleasedThisFrame)
+					{
+						game = Game.start;
+					}
+				}
+			}
+		}
 }
-	private void OnTriggerStay2D(Collider2D collision)
+	private void OnTriggerStay2D(Collider2D collision) // °‚É‚¢‚éê‡‚Í’Êí‚Ìp‚É
 	{
-		if (timer > 30) {spriteRenderer.sprite = normal;style=1;}
+		if (timer > 30) {spriteRenderer.sprite = normal;}
 	}
-	private void OnTriggerExit2D(Collider2D collision)
+	private void OnTriggerExit2D(Collider2D collision)	// °‚©‚ç—£‚ê‚Ä‚¢‚éê‡‚ÍƒWƒƒƒ“ƒv‚Ìp‚É
 	{
-		if (timer > 30) 
-		{
-			style++;
-			if(style%4>1){spriteRenderer.sprite = jump;}
-			if(style%4<2){spriteRenderer.sprite = normal;}
-		}
+		if (timer > 30) {spriteRenderer.sprite = jump;}	
 	}
 
 }

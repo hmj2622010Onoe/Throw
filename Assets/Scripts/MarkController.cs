@@ -14,6 +14,7 @@ public class MarkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		// 飛ぶ方向の目印になるようプレイヤーの中心から動く
 		transform.position = player.transform.position;
 		transform.Translate((-SignalGenerator.swipeX/500)*2, (-SignalGenerator.swipeY/500)*2, 0);
 	}
